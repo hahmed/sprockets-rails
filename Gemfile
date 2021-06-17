@@ -4,5 +4,5 @@ gemspec
 
 gem 'actionpack', github: 'rails/rails', branch: 'main'
 gem 'railties', github: 'rails/rails', branch: 'main'
-gem 'rack', github: 'rack/rack', branch: 'main'
+gem 'rack', github: 'rack/rack', branch: 'master'
 gem 'sprockets', github: 'rails/sprockets', branch: '3.x'
