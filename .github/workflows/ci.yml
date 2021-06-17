@@ -1,0 +1,30 @@
+name: CI
+on: [push, pull_request]
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - { ruby: 2.5 }
+          - { ruby: 2.6 }
+          - { ruby: 2.7 }
+          - { ruby: 3.0,  allow-failure: true }
+          - { ruby: head, allow-failure: true }
+      gemfile: [
+          "Gemfile",
+          "gemfiles/Gemfile.rails-5.2.x",
+          "gemfiles/Gemfile.rails-5.2.x.sprockets-4.x",
+          "gemfiles/Gemfile.rails-6.0.x",
+          "gemfiles/Gemfile.rails-6.0.x.sprockets-4.x"
+        ]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
+
+      - name: Run tests
+        run: bundle exec rake
